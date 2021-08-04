@@ -1,22 +1,23 @@
 <!-- BEGIN_TF_DOCS -->
-[![Tests](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml)
+[![Tests](https://github.com/netascode/terraform-aci-error-disabled-recovery/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-error-disabled-recovery/actions/workflows/test.yml)
 
-# Terraform ACI Scaffolding Module
+# Terraform ACI Error Disabled Recovery Module
 
-Description
+Manages ACI Error Disabled Recovery
 
 Location in GUI:
-`Tenants` » `XXX`
+`Fabric` » `Access Policies` » `Policies` » `Global` » `Error Disabled Recovery Policy`
 
 ## Examples
 
 ```hcl
-module "aci_scaffolding" {
-  source = "netascode/scaffolding/aci"
+module "aci_error_disabled_recovery" {
+  source = "netascode/error-disabled-recovery/aci"
 
-  name        = "ABC"
-  alias       = "ABC-ALIAS"
-  description = "My Description"
+  interval   = 600
+  mcp_loop   = true
+  ep_move    = true
+  bpdu_guard = true
 }
 
 ```
@@ -38,20 +39,23 @@ module "aci_scaffolding" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_name"></a> [name](#input\_name) | Tenant name. | `string` | n/a | yes |
-| <a name="input_alias"></a> [alias](#input\_alias) | Tenant alias. | `string` | `""` | no |
-| <a name="input_description"></a> [description](#input\_description) | Tenant description. | `string` | `""` | no |
+| <a name="input_interval"></a> [interval](#input\_interval) | Interval. Minimum value: 30. Maximum value: 65535. | `number` | `300` | no |
+| <a name="input_mcp_loop"></a> [mcp\_loop](#input\_mcp\_loop) | MCP loop recovery. | `bool` | `false` | no |
+| <a name="input_ep_move"></a> [ep\_move](#input\_ep\_move) | EP move recovery. | `bool` | `false` | no |
+| <a name="input_bpdu_guard"></a> [bpdu\_guard](#input\_bpdu\_guard) | BPDU guard recovery. | `bool` | `false` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `fvTenant` object. |
-| <a name="output_name"></a> [name](#output\_name) | Tenant name. |
+| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `edrErrDisRecoverPol` object. |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aci_rest.fvTenant](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.edrErrDisRecoverPol](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.edrEventP-event-bpduguard](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.edrEventP-event-ep-move](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.edrEventP-event-mcp-loop](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
 <!-- END_TF_DOCS -->
