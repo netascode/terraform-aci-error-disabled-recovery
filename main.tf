@@ -1,4 +1,4 @@
-resource "aci_rest" "edrErrDisRecoverPol" {
+resource "aci_rest_managed" "edrErrDisRecoverPol" {
   dn         = "uni/infra/edrErrDisRecoverPol-default"
   class_name = "edrErrDisRecoverPol"
   content = {
@@ -7,8 +7,8 @@ resource "aci_rest" "edrErrDisRecoverPol" {
   }
 }
 
-resource "aci_rest" "edrEventP-event-mcp-loop" {
-  dn         = "${aci_rest.edrErrDisRecoverPol.dn}/edrEventP-event-mcp-loop"
+resource "aci_rest_managed" "edrEventP-event-mcp-loop" {
+  dn         = "${aci_rest_managed.edrErrDisRecoverPol.dn}/edrEventP-event-mcp-loop"
   class_name = "edrEventP"
   content = {
     event   = "event-mcp-loop"
@@ -16,8 +16,8 @@ resource "aci_rest" "edrEventP-event-mcp-loop" {
   }
 }
 
-resource "aci_rest" "edrEventP-event-ep-move" {
-  dn         = "${aci_rest.edrErrDisRecoverPol.dn}/edrEventP-event-ep-move"
+resource "aci_rest_managed" "edrEventP-event-ep-move" {
+  dn         = "${aci_rest_managed.edrErrDisRecoverPol.dn}/edrEventP-event-ep-move"
   class_name = "edrEventP"
   content = {
     event   = "event-ep-move"
@@ -25,8 +25,8 @@ resource "aci_rest" "edrEventP-event-ep-move" {
   }
 }
 
-resource "aci_rest" "edrEventP-event-bpduguard" {
-  dn         = "${aci_rest.edrErrDisRecoverPol.dn}/edrEventP-event-bpduguard"
+resource "aci_rest_managed" "edrEventP-event-bpduguard" {
+  dn         = "${aci_rest_managed.edrErrDisRecoverPol.dn}/edrEventP-event-bpduguard"
   class_name = "edrEventP"
   content = {
     event   = "event-bpduguard"
